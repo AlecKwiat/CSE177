@@ -19,6 +19,17 @@ using namespace std;
 
 int UserChoice = 0;
 
+static int callback(void *data, int argc, char **argv, char **azColName){
+   int i;
+   fprintf(stderr, "%s: ", (const char*)data);
+   
+   for(i = 0; i<argc; i++){
+      printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+   }
+   
+   printf("\n");
+   return 0;
+}
 
 void MainMenu()
 do
@@ -34,25 +45,39 @@ cout << "Press 4 to Save the content of the Catalog to the Database" << endl;
 	switch(UserChoice)
 	{
 	`	case 1:
-			void TableCreate(int argc, char** argv)
+			void TableCreate(int argc, char* argv[])
 			{
-				sqlite3* DB;
-				int stop = 0;
-				stop = sqlite3_open("catlog.db", &DB);
+				sqlite3* db;
+				char *zErrMsg = 0;
+				int rc;
+				char *sql
+				
+				rc = sqlite3_open("catalog.db", &db);
 
-				if (stop){
+				if (rc){
 				cout << "Error when trying to open Database" << endl;
+					return(0);
 				}
 				else 
-				cout << "Opend the Database" << endl;
+				cout << "Opened the Database" << endl;
 
 					//add the tables here
-				string sql = "CREATE TABLE [name]("
-					     "ID INT PRIMARY KEY 	NOT NULL, "
-1						//etc
+				 sql = "CREATE TABLE TABLES("\
+					     "NAME	 TEXT	NOT NULL, "\
+					     "TYPE	TEXT	NOT NULL);";					//etc
 						
+				rc = sqlite3_exec(db. sql, callback, 0, &zErrMsg);
+				
+				 
+				   if( rc != SQLITE_OK ){
+				      cout << (stderr, "SQL error: %s\n", zErrMsg) << endl;
+				      sqlite3_free(zErrMsg);
+				   } else {
+				      cout << (stdout, "Table created successfully\n") << endl;
+				   }
 
-				sqlite3_close(DB);
+				
+				sqlite3_close(db);
 				return(0);
 			}
 
@@ -61,7 +86,7 @@ cout << "Press 4 to Save the content of the Catalog to the Database" << endl;
 		case 2: 
 			void TableDrop()
 			{
-
+				sql = "DROP TABLE IF EXISTS TABLE;"
 			}
 
 			break;
