@@ -65,8 +65,13 @@ cout << "Press 4 to Save the content of the Catalog to the Database" << endl;
 				 sql = "CREATE TABLE attributes (\
    					name       STRING  NOT NULL,\
     					type       STRING  NOT NULL,\
-    					noDistinct INTEGER NOT NULL);";
+    					noDistinct INTEGER NOT NULL);"
 					//etc
+				
+					"CREATE TABLE [table] (\
+    					fileName STRING  NOT NULL,\
+    					noTuples INTEGER NOT NULL,\
+    					path     STRING  NOT NULL);";
 						
 				rc = sqlite3_exec(db. sql, callback, 0, &zErrMsg);
 				
@@ -88,22 +93,41 @@ cout << "Press 4 to Save the content of the Catalog to the Database" << endl;
 		case 2: 
 			void TableDrop()
 			{
-				sql = "DROP TABLE IF EXISTS TABLE;"
+				int table = 0
+				cout << "Enter 1 to drop 'table' or 2 to drop 'attributes'" << endl; 
+				
+				if(table = 1){
+				sql = "DROP TABLE IF EXISTS [table];";
+				}else if(table = 2){
+				sql= "DROP TABLE IF EXISTS attributes;";
+				}else{
+					cout << "Please make a valid selection" << endl;
+				}
 			}
 
 			break;
 		
-		case 3: 
+		case 3:
 			void DisplayContent()
 			{
-
+				int display = 0;
+				
+				cout << "Enter 1 to display the content of 'table' or 2 to display the content of 'attributes'" << endl;
+				
+				if (display = 1){
+				sql = "SELECT * FROM table;";
+				}else if (display = 2){
+				sql = "SELECT * FROM attributes;";
+				}else{
+				cout << "Please make a valid selection" << endl;
+				}
 			}
 			break;
 
 		case 4:
 			void SaveContent()
 			{
-
+			 sql = ".save catalog.db;";
 			}
 		break;
 	
