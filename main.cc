@@ -62,9 +62,11 @@ cout << "Press 4 to Save the content of the Catalog to the Database" << endl;
 				cout << "Opened the Database" << endl;
 
 					//add the tables here
-				 sql = "CREATE TABLE TABLES("\
-					     "NAME	 TEXT	NOT NULL, "\
-					     "TYPE	TEXT	NOT NULL);";					//etc
+				 sql = "CREATE TABLE attributes (\
+   					name       STRING  NOT NULL,\
+    					type       STRING  NOT NULL,\
+    					noDistinct INTEGER NOT NULL);";
+					//etc
 						
 				rc = sqlite3_exec(db. sql, callback, 0, &zErrMsg);
 				
